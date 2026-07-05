@@ -6,7 +6,7 @@
   <title>CopyPilot | 生成工作台</title>
   <link rel="stylesheet" href="../assets/styles.css">
 </head>
-<body>
+<body class="generate-page">
   <div class="app-layout">
     <aside class="sidebar">
       <a class="brand" href="../www/index.html"><span class="brand-mark">AI</span><span>CopyPilot</span></a>
@@ -35,45 +35,49 @@
       </header>
 
       <section class="workspace-grid">
-        <form class="panel form-grid" data-generate-form>
-          <div>
-            <h3>文案 Brief</h3>
-            <p class="empty-note">先用 mock 数据跑通交互，后续可替换为真实生成接口。</p>
-          </div>
-          <div class="field">
-            <label for="productName">产品名称</label>
-            <input id="productName" name="productName" value="CopyPilot">
-          </div>
-          <div class="field">
-            <label for="intro">一句话介绍</label>
-            <textarea id="intro" name="intro">面向独立开发者和小团队的 AI 营销文案工作台。</textarea>
-          </div>
-          <div class="field">
-            <label for="audience">目标用户</label>
-            <input id="audience" name="audience" value="独立开发者、小团队、内容运营者">
-          </div>
-          <div class="field">
-            <label>3 个卖点</label>
-            <div class="selling-points">
-              <input name="point1" value="把产品信息结构化成清晰 brief">
-              <input name="point2" value="一次生成标题、CTA、短文案和长文案">
-              <input name="point3" value="支持多渠道投放语境快速切换">
+        <form class="panel form-grid generate-form-panel" data-generate-form>
+          <div class="generate-form-scroll">
+            <div>
+              <h3>文案 Brief</h3>
+              <p class="empty-note">先用 mock 数据跑通交互，后续可替换为真实生成接口。</p>
+            </div>
+            <div class="field">
+              <label for="productName">产品名称</label>
+              <input id="productName" name="productName" value="CopyPilot">
+            </div>
+            <div class="field">
+              <label for="intro">一句话介绍</label>
+              <textarea id="intro" name="intro">面向独立开发者和小团队的 AI 营销文案工作台。</textarea>
+            </div>
+            <div class="field">
+              <label for="audience">目标用户</label>
+              <input id="audience" name="audience" value="独立开发者、小团队、内容运营者">
+            </div>
+            <div class="field">
+              <label>3 个卖点</label>
+              <div class="selling-points">
+                <input name="point1" value="把产品信息结构化成清晰 brief">
+                <input name="point2" value="一次生成标题、CTA、短文案和长文案">
+                <input name="point3" value="支持多渠道投放语境快速切换">
+              </div>
+            </div>
+            <div class="field">
+              <label for="channel">投放渠道</label>
+              <select id="channel" name="channel">
+                <option>官网</option>
+                <option>朋友圈</option>
+                <option>小红书</option>
+                <option>抖音</option>
+                <option>邮件</option>
+              </select>
             </div>
           </div>
-          <div class="field">
-            <label for="channel">投放渠道</label>
-            <select id="channel" name="channel">
-              <option>官网</option>
-              <option>朋友圈</option>
-              <option>小红书</option>
-              <option>抖音</option>
-              <option>邮件</option>
-            </select>
+          <div class="generate-form-actions">
+            <button class="btn primary full" type="submit" data-generate-button>生成文案</button>
           </div>
-          <button class="btn primary full" type="submit" data-generate-button>生成文案</button>
         </form>
 
-        <section class="panel">
+        <section class="panel generate-result-panel">
           <div class="result-header">
             <div>
               <h3>生成结果</h3>
