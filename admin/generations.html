@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CopyPilot Admin | 生成记录</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <a class="brand" href="./index.html"><span class="brand-mark">AD</span><span>Admin</span></a>
+      <nav class="side-nav">
+        <a href="./index.html">后台首页</a>
+        <a href="./users.html">用户管理</a>
+        <a class="active" href="./generations.html">生成记录</a>
+        <a href="./billing.html">支付订单</a>
+      </nav>
+      <div class="sidebar-foot">用于排查失败记录、热门渠道和成本趋势。</div>
+    </aside>
+
+    <main class="workspace">
+      <header class="workspace-head">
+        <div>
+          <h1>生成记录</h1>
+          <p>查看每次生成的用户、渠道、语气、状态和模拟 token 成本。</p>
+        </div>
+        <button class="btn secondary">导出 CSV</button>
+      </header>
+
+      <section class="grid three" style="margin-bottom: 18px;">
+        <article class="card">
+          <div class="accent-line"></div>
+          <h3>高频渠道</h3>
+          <p>小红书 38% / 信息流广告 26% / 落地页 18%</p>
+        </article>
+        <article class="card">
+          <div class="accent-line coral"></div>
+          <h3>失败原因</h3>
+          <p>模型超时、敏感词校验和队列拥堵是当前主要失败类型。</p>
+        </article>
+        <article class="card">
+          <div class="accent-line yellow"></div>
+          <h3>高峰时段</h3>
+          <p>工作日 10:00-12:00 与 20:00-22:00 生成请求更集中。</p>
+        </article>
+      </section>
+
+      <section class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>生成 ID</th>
+              <th>用户</th>
+              <th>渠道</th>
+              <th>语气</th>
+              <th>状态</th>
+              <th>成本</th>
+              <th>时间</th>
+            </tr>
+          </thead>
+          <tbody data-admin-generations></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script src="../assets/data.js"></script>
+  <script src="../assets/site.js"></script>
+</body>
+</html>

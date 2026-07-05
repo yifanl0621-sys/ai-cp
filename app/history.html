@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CopyPilot | 历史记录</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="brand" href="../www/index.html"><span class="brand-mark">AI</span><span>CopyPilot</span></a>
+      <nav class="side-nav">
+        <a href="./generate.html">生成工作台</a>
+        <a class="active" href="./history.html">历史记录</a>
+        <a href="./billing.html">套餐页</a>
+        <a href="./login.html">登录</a>
+        <a href="./register.html">注册</a>
+      </nav>
+      <div class="sidebar-foot">历史记录仅展示当前用户可见的数据。</div>
+    </aside>
+
+    <main class="workspace">
+      <header class="workspace-head">
+        <div>
+          <h1>历史记录</h1>
+          <p>按时间和类型浏览已生成文案，支持再次打开、复制和删除。</p>
+        </div>
+        <a class="btn primary" href="./generate.html">新建生成</a>
+      </header>
+      <div class="toolbar">
+        <div class="chip-row">
+          <button class="chip active" data-history-filter="全部">全部</button>
+          <button class="chip" data-history-filter="小红书">小红书</button>
+          <button class="chip" data-history-filter="落地页">落地页</button>
+          <button class="chip" data-history-filter="朋友圈">朋友圈</button>
+          <button class="chip" data-history-filter="邮件">邮件</button>
+        </div>
+        <button class="btn secondary">导出选中</button>
+      </div>
+      <section class="grid" data-history data-filter="全部"></section>
+    </main>
+  </div>
+  <script src="../assets/data.js"></script>
+  <script src="../assets/site.js"></script>
+</body>
+</html>

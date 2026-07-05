@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CopyPilot | 套餐页</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="brand" href="../www/index.html"><span class="brand-mark">AI</span><span>CopyPilot</span></a>
+      <nav class="side-nav">
+        <a href="./generate.html">生成工作台</a>
+        <a href="./history.html">历史记录</a>
+        <a class="active" href="./billing.html">套餐页</a>
+        <a href="./login.html">登录</a>
+        <a href="./register.html">注册</a>
+      </nav>
+      <div class="sidebar-foot">支付按钮当前为占位，不会创建真实订单。</div>
+    </aside>
+
+    <main class="workspace">
+      <header class="workspace-head">
+        <div>
+          <h1>套餐页</h1>
+          <p>查看 Free / Pro / Team 套餐，模拟月付和年付切换。</p>
+        </div>
+        <div class="chip-row">
+          <button class="chip active" data-cycle-button="monthly">月付</button>
+          <button class="chip" data-cycle-button="yearly">年付</button>
+        </div>
+      </header>
+
+      <section class="panel">
+        <div class="result-header">
+          <div>
+            <h3>当前套餐：Pro</h3>
+            <p class="empty-note">本月已生成 128 / 800 次，历史记录长期保存，优先生成队列已开启。</p>
+          </div>
+          <span class="status success">订阅正常</span>
+        </div>
+      </section>
+
+      <section class="section tight">
+        <div class="grid three" data-pricing data-cycle="monthly"></div>
+      </section>
+    </main>
+  </div>
+  <script src="../assets/data.js"></script>
+  <script src="../assets/site.js"></script>
+</body>
+</html>

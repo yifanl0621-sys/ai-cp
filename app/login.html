@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CopyPilot | 登录</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <main class="auth-page">
+    <aside class="auth-aside">
+      <a class="brand" href="../www/index.html"><span class="brand-mark">AI</span><span>CopyPilot</span></a>
+      <div>
+        <span class="eyebrow">用户工作台</span>
+        <h1>欢迎回来</h1>
+        <p>登录后可以继续生成营销文案、打开历史记录，并查看当前套餐权益。当前页面只做结构，不连接真实鉴权。</p>
+      </div>
+      <p>演示账号：demo@copypilot.cn / 任意密码</p>
+    </aside>
+    <section class="auth-main">
+      <form class="auth-card" action="./generate.html">
+        <h1>登录</h1>
+        <p class="empty-note">使用邮箱密码进入工作台。</p>
+        <div class="form-grid">
+          <div class="field">
+            <label for="email">邮箱</label>
+            <input id="email" name="email" type="email" value="demo@copypilot.cn">
+          </div>
+          <div class="field">
+            <label for="password">密码</label>
+            <input id="password" name="password" type="password" value="password">
+          </div>
+          <button class="btn primary full" type="submit">登录工作台</button>
+        </div>
+        <div class="divider">或</div>
+        <button class="btn secondary full" type="button">使用 Google 登录</button>
+        <p class="empty-note">还没有账号？<a href="./register.html">立即注册</a></p>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CopyPilot Admin | 支付订单</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <a class="brand" href="./index.html"><span class="brand-mark">AD</span><span>Admin</span></a>
+      <nav class="side-nav">
+        <a href="./index.html">后台首页</a>
+        <a href="./users.html">用户管理</a>
+        <a href="./generations.html">生成记录</a>
+        <a class="active" href="./billing.html">支付订单</a>
+      </nav>
+      <div class="sidebar-foot">订单状态与用户套餐状态后续需要保持一致。</div>
+    </aside>
+
+    <main class="workspace">
+      <header class="workspace-head">
+        <div>
+          <h1>支付订单</h1>
+          <p>查看支付成功、失败、退款与订阅周期。</p>
+        </div>
+        <button class="btn secondary">同步支付状态</button>
+      </header>
+
+      <section class="metrics">
+        <article class="metric-card"><span>本月收入</span><strong>¥86,420</strong><small>+5.2%</small></article>
+        <article class="metric-card"><span>支付成功率</span><strong>96.1%</strong><small>+0.7%</small></article>
+        <article class="metric-card"><span>退款率</span><strong>1.4%</strong><small>低风险</small></article>
+        <article class="metric-card"><span>Team 占比</span><strong>22%</strong><small>+3.8%</small></article>
+      </section>
+
+      <section class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>订单号</th>
+              <th>用户</th>
+              <th>套餐</th>
+              <th>周期</th>
+              <th>金额</th>
+              <th>状态</th>
+              <th>创建时间</th>
+            </tr>
+          </thead>
+          <tbody data-orders></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script src="../assets/data.js"></script>
+  <script src="../assets/site.js"></script>
+</body>
+</html>

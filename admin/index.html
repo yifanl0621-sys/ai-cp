@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CopyPilot Admin | 后台首页</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <a class="brand" href="./index.html"><span class="brand-mark">AD</span><span>Admin</span></a>
+      <nav class="side-nav">
+        <a class="active" href="./index.html">后台首页</a>
+        <a href="./users.html">用户管理</a>
+        <a href="./generations.html">生成记录</a>
+        <a href="./billing.html">支付订单</a>
+      </nav>
+      <div class="sidebar-foot">管理员视角：用户、生成、支付和转化概览。</div>
+    </aside>
+
+    <main class="workspace">
+      <header class="workspace-head">
+        <div>
+          <h1>后台首页</h1>
+          <p>关键经营指标、生成趋势和近期异常概览。</p>
+        </div>
+        <span class="status success">Admin</span>
+      </header>
+
+      <section class="metrics" data-metrics></section>
+
+      <section class="split">
+        <div class="panel">
+          <div class="result-header">
+            <h3>近 7 日生成趋势</h3>
+            <span class="chip">假数据</span>
+          </div>
+          <div class="chart" aria-label="近 7 日生成趋势柱状图">
+            <div class="bar" style="height: 42%"></div>
+            <div class="bar" style="height: 58%"></div>
+            <div class="bar" style="height: 51%"></div>
+            <div class="bar" style="height: 72%"></div>
+            <div class="bar" style="height: 67%"></div>
+            <div class="bar" style="height: 88%"></div>
+            <div class="bar" style="height: 79%"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="result-header">
+            <h3>转化概览</h3>
+            <span class="chip">本月</span>
+          </div>
+          <div class="result-card">
+            <div class="result-header"><span>游客到注册</span><strong>18.6%</strong></div>
+            <div class="result-header"><span>免费到 Pro</span><strong>7.4%</strong></div>
+            <div class="result-header"><span>支付成功率</span><strong>96.1%</strong></div>
+            <div class="result-header"><span>生成失败率</span><strong>1.9%</strong></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="../assets/data.js"></script>
+  <script src="../assets/site.js"></script>
+</body>
+</html>

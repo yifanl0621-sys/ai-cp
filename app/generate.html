@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CopyPilot | 生成工作台</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="brand" href="../www/index.html"><span class="brand-mark">AI</span><span>CopyPilot</span></a>
+      <nav class="side-nav">
+        <a class="active" href="./generate.html">生成工作台</a>
+        <a href="./history.html">历史记录</a>
+        <a href="./billing.html">套餐页</a>
+        <a href="./login.html">登录</a>
+        <a href="./register.html">注册</a>
+      </nav>
+      <div class="sidebar-foot">当前套餐：Pro<br>本月已生成 128 / 800 次</div>
+    </aside>
+
+    <main class="workspace">
+      <header class="workspace-head">
+        <div>
+          <h1>生成工作台</h1>
+          <p>结构化输入产品、受众、渠道和语气，模拟生成营销文案。</p>
+        </div>
+        <div class="account-pill"><span class="avatar">M</span><span>demo@copypilot.cn</span></div>
+      </header>
+
+      <section class="workspace-grid">
+        <form class="panel form-grid" data-generate-form>
+          <h3>输入上下文</h3>
+          <div class="field">
+            <label for="product">产品信息</label>
+            <textarea id="product" name="product">AI 营销文案 SaaS，帮助独立开发者和小团队快速生成广告、落地页和社媒文案。</textarea>
+          </div>
+          <div class="field">
+            <label for="audience">目标受众</label>
+            <input id="audience" name="audience" value="独立开发者、小团队、内容运营者">
+          </div>
+          <div class="field">
+            <label for="selling">核心卖点</label>
+            <textarea id="selling" name="selling">结构化输入、多渠道模板、历史复用、套餐升级、后台运营数据。</textarea>
+          </div>
+          <div class="grid two">
+            <div class="field">
+              <label for="channel">输出渠道</label>
+              <select id="channel" name="channel">
+                <option>小红书</option>
+                <option>信息流广告</option>
+                <option>落地页</option>
+                <option>朋友圈</option>
+                <option>邮件</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="tone">语气</label>
+              <select id="tone" name="tone">
+                <option>高转化</option>
+                <option>真实体验</option>
+                <option>专业</option>
+                <option>温暖</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn primary full" type="submit">模拟生成</button>
+        </form>
+
+        <section class="panel">
+          <div class="result-header">
+            <div>
+              <h3>生成结果</h3>
+              <p class="empty-note">点击模拟生成后，会在这里展示可保存、复制和继续编辑的结果。</p>
+            </div>
+            <span class="status pending">假数据</span>
+          </div>
+          <div data-generate-result>
+            <article class="result-card">
+              <div class="result-header">
+                <div>
+                  <h3>AI 营销文案 SaaS：落地页首屏</h3>
+                  <div class="tag-list"><span class="tag">落地页</span><span class="chip">高转化</span></div>
+                </div>
+                <small>示例</small>
+              </div>
+              <div class="copy-block">少写一小时，多拿一版能投放的营销文案。CopyPilot 帮你把产品卖点、目标受众和渠道语气整理成稳定工作流。</div>
+              <div class="chip-row">
+                <button class="btn primary">保存到历史</button>
+                <button class="btn secondary">复制结果</button>
+                <button class="btn secondary">继续编辑</button>
+              </div>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="../assets/data.js"></script>
+  <script src="../assets/site.js"></script>
+</body>
+</html>

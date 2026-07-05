@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 营销文案 SaaS | 定价</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav container">
+      <a class="brand" href="./index.html"><span class="brand-mark">AI</span><span>CopyPilot</span></a>
+      <div class="nav-links">
+        <a href="./index.html">首页</a>
+        <a class="active" href="./pricing.html">定价</a>
+        <a href="./faq.html">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <a class="btn secondary" href="../app/login.html">登录</a>
+        <a class="btn primary" href="../app/register.html">免费试用</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Pricing</span>
+            <h1>按生成规模选择套餐</h1>
+            <p class="lead">当前仅展示页面结构和假数据。后续可接入 `/api/billing/plans` 与支付 checkout。</p>
+          </div>
+          <div class="chip-row">
+            <button class="chip active" data-cycle-button="monthly">月付</button>
+            <button class="chip" data-cycle-button="yearly">年付</button>
+          </div>
+        </div>
+        <div class="grid three" data-pricing data-cycle="monthly"></div>
+      </div>
+    </section>
+
+    <section class="section tight">
+      <div class="container grid three">
+        <article class="card">
+          <div class="accent-line"></div>
+          <h3>免费试用</h3>
+          <p>面向个人创作者和独立开发者，注册后进入工作台完整体验，不需要销售介入。</p>
+        </article>
+        <article class="card">
+          <div class="accent-line coral"></div>
+          <h3>产品演示</h3>
+          <p>面向代理商和团队采购，保留预约演示入口，后续可连接 CRM 或表单系统。</p>
+        </article>
+        <article class="card">
+          <div class="accent-line yellow"></div>
+          <h3>支付闭环</h3>
+          <p>套餐页、订单状态和后台支付列表保持同一套状态模型，便于接入 Stripe 或其他支付。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">定价数据来自本地假数据，未连接真实支付。</div>
+  </footer>
+  <script src="../assets/data.js"></script>
+  <script src="../assets/site.js"></script>
+</body>
+</html>
