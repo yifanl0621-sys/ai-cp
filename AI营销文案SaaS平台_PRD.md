@@ -503,3 +503,8 @@ erDiagram
 - 是否默认只做单次生成，不做批量生成
 - 支付是先做月付，还是月付和年付都做
 - 是否需要在第一版加入模板库
+
+
+
+![image-20260705172023464](C:\Users\BBG\AppData\Roaming\Typora\typora-user-images\image-20260705172023464.png)
+
