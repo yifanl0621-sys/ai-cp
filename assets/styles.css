@@ -1,21 +1,24 @@
 :root {
-  --bg: #f6f4ef;
+  --bg: #f5f7fa;
   --surface: #ffffff;
-  --surface-soft: #fbfaf7;
-  --ink: #191816;
-  --muted: #66625b;
-  --line: #ded9cf;
-  --line-strong: #c9c1b5;
-  --teal: #0f766e;
-  --teal-dark: #0a4f49;
+  --surface-soft: #f8fafc;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-soft: rgba(37, 99, 235, 0.1);
+  --teal: #2563eb;
+  --teal-dark: #1d4ed8;
   --coral: #df5b45;
   --yellow: #f2b84b;
   --green: #3f8f5b;
   --red: #c8493c;
-  --blue: #3268a8;
-  --shadow: 0 18px 45px rgba(47, 43, 35, 0.12);
+  --blue: #2563eb;
+  --shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
   --radius: 8px;
-  font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
   color: var(--ink);
   background: var(--bg);
 }
@@ -31,9 +34,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(246, 244, 239, 0) 360px),
-    var(--bg);
+  background: var(--bg);
 }
 
 a {
@@ -65,9 +66,10 @@ button {
   position: sticky;
   top: 0;
   z-index: 20;
-  border-bottom: 1px solid rgba(222, 217, 207, 0.85);
-  background: rgba(246, 244, 239, 0.88);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.86);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .nav {
@@ -93,8 +95,8 @@ button {
   height: 34px;
   border-radius: 8px;
   color: #fff;
-  background: linear-gradient(135deg, var(--teal), var(--coral));
-  box-shadow: 0 10px 24px rgba(15, 118, 110, 0.22);
+  background: linear-gradient(135deg, var(--primary), #60a5fa);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.24);
 }
 
 .nav-links {
@@ -121,7 +123,7 @@ button {
 .side-nav a:hover,
 .side-nav a.active {
   color: var(--ink);
-  background: rgba(15, 118, 110, 0.09);
+  background: var(--primary-soft);
 }
 
 .nav-actions {
@@ -147,11 +149,12 @@ button {
 
 .btn.primary {
   color: #fff;
-  background: var(--teal);
+  background: var(--primary);
+  box-shadow: 0 12px 26px rgba(37, 99, 235, 0.24);
 }
 
 .btn.primary:hover {
-  background: var(--teal-dark);
+  background: var(--primary-dark);
 }
 
 .btn.secondary {
@@ -192,10 +195,10 @@ button {
   gap: 8px;
   min-height: 30px;
   padding: 0 10px;
-  border: 1px solid rgba(15, 118, 110, 0.24);
+  border: 1px solid rgba(37, 99, 235, 0.22);
   border-radius: 8px;
-  color: var(--teal-dark);
-  background: rgba(15, 118, 110, 0.08);
+  color: var(--primary-dark);
+  background: rgba(37, 99, 235, 0.08);
   font-size: 13px;
   font-weight: 800;
 }
@@ -209,6 +212,7 @@ p {
 
 h1 {
   margin: 18px 0;
+  color: var(--primary);
   font-size: 58px;
   line-height: 1.04;
   letter-spacing: 0;
@@ -311,7 +315,7 @@ h3 {
   height: 4px;
   margin-bottom: 18px;
   border-radius: 4px;
-  background: var(--teal);
+  background: var(--primary);
 }
 
 .accent-line.coral {
@@ -337,7 +341,7 @@ h3 {
   min-height: 50px;
   padding: 0 16px;
   border-bottom: 1px solid var(--line);
-  background: #fbfaf7;
+  background: #f8fafc;
 }
 
 .window-dots {
@@ -361,7 +365,7 @@ h3 {
 .preview-rail {
   padding: 18px;
   border-right: 1px solid var(--line);
-  background: #f8f6f1;
+  background: #f8fafc;
 }
 
 .rail-item {
@@ -378,7 +382,7 @@ h3 {
 
 .rail-item.active {
   color: var(--ink);
-  background: rgba(15, 118, 110, 0.12);
+  background: var(--primary-soft);
 }
 
 .preview-main {
@@ -414,9 +418,9 @@ h3 {
 .output-box {
   margin-top: 14px;
   padding: 16px;
-  border: 1px solid rgba(15, 118, 110, 0.2);
+  border: 1px solid rgba(37, 99, 235, 0.2);
   border-radius: 8px;
-  background: rgba(15, 118, 110, 0.06);
+  background: rgba(37, 99, 235, 0.06);
 }
 
 .output-box p {
@@ -444,8 +448,8 @@ h3 {
 }
 
 .tag {
-  color: var(--teal-dark);
-  background: rgba(15, 118, 110, 0.1);
+  color: var(--primary-dark);
+  background: var(--primary-soft);
 }
 
 .chip {
@@ -456,9 +460,9 @@ h3 {
 
 .chip.active,
 .chip:hover {
-  border-color: rgba(15, 118, 110, 0.35);
+  border-color: rgba(37, 99, 235, 0.35);
   color: var(--ink);
-  background: rgba(15, 118, 110, 0.08);
+  background: rgba(37, 99, 235, 0.08);
 }
 
 .status.success {
@@ -482,11 +486,16 @@ h3 {
   display: flex;
   flex-direction: column;
   min-height: 430px;
+  border-color: rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .pricing-card.highlight {
-  border-color: rgba(15, 118, 110, 0.38);
-  box-shadow: 0 16px 36px rgba(15, 118, 110, 0.12);
+  border-color: rgba(37, 99, 235, 0.38);
+  box-shadow: 0 24px 60px rgba(37, 99, 235, 0.18);
 }
 
 .price {
@@ -521,7 +530,7 @@ h3 {
   height: 8px;
   margin-top: 8px;
   border-radius: 50%;
-  background: var(--teal);
+  background: var(--primary);
   flex: 0 0 auto;
 }
 
@@ -572,7 +581,7 @@ details p {
   height: 100vh;
   padding: 24px 18px;
   border-right: 1px solid var(--line);
-  background: #fbfaf7;
+  background: #ffffff;
 }
 
 .side-nav {
@@ -692,10 +701,12 @@ details p {
 .field select,
 .field textarea {
   width: 100%;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: #fff;
   color: var(--ink);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .field input,
@@ -720,10 +731,20 @@ details p {
   width: 100%;
   height: 42px;
   padding: 0 12px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: #fff;
   color: var(--ink);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus,
+.selling-points input:focus {
+  border-color: var(--primary);
+  outline: 3px solid rgba(37, 99, 235, 0.14);
 }
 
 .result-header,
@@ -793,8 +814,8 @@ details p {
 .spinner {
   width: 34px;
   height: 34px;
-  border: 3px solid rgba(15, 118, 110, 0.18);
-  border-top-color: var(--teal);
+  border: 3px solid rgba(37, 99, 235, 0.18);
+  border-top-color: var(--primary);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -829,9 +850,9 @@ details p {
 .hero-copy,
 .cta-copy {
   padding: 16px;
-  border: 1px solid rgba(15, 118, 110, 0.18);
+  border: 1px solid rgba(37, 99, 235, 0.18);
   border-radius: 8px;
-  background: rgba(15, 118, 110, 0.06);
+  background: rgba(37, 99, 235, 0.06);
 }
 
 .hero-copy strong {
@@ -840,7 +861,7 @@ details p {
 }
 
 .cta-copy strong {
-  color: var(--teal-dark);
+  color: var(--primary-dark);
   font-size: 18px;
 }
 
@@ -896,6 +917,8 @@ details p {
   grid-template-rows: minmax(0, 1fr) auto;
   gap: 14px;
   align-content: stretch;
+  border-color: var(--line);
+  background: #ffffff;
 }
 
 .generate-form-scroll {
@@ -910,16 +933,26 @@ details p {
 .generate-form-actions {
   padding-top: 14px;
   border-top: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.64);
+  background: #ffffff;
 }
 
 .generate-result-panel {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(248, 250, 252, 0.62)),
+    rgba(255, 255, 255, 0.68);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .generate-result-panel .result-header {
   margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.76);
 }
 
 .generate-result-panel .result-stage {
@@ -933,6 +966,11 @@ details p {
   width: 100%;
   height: 100%;
   min-height: 0;
+  border-color: rgba(37, 99, 235, 0.22);
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.86) inset;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .generate-result-panel .marketing-result {
@@ -940,6 +978,16 @@ details p {
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
+  border-color: rgba(226, 232, 240, 0.82);
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.generate-result-panel .copy-block,
+.generate-result-panel .hero-copy,
+.generate-result-panel .cta-copy {
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .auth-page {
@@ -954,7 +1002,7 @@ details p {
   justify-content: space-between;
   padding: 36px;
   color: #fff;
-  background: #183f3b;
+  background: #1d4ed8;
 }
 
 .auth-aside p {
@@ -1018,7 +1066,7 @@ td {
 th {
   color: var(--muted);
   font-size: 13px;
-  background: #fbfaf7;
+  background: #f8fafc;
 }
 
 td {
