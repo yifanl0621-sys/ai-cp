@@ -6,7 +6,7 @@
   <title>CopyPilot | 套餐页</title>
   <link rel="stylesheet" href="../assets/styles.css">
 </head>
-<body>
+<body data-auth-required>
   <div class="app-layout">
     <aside class="sidebar">
       <a class="brand" href="../www/index.html"><span class="brand-mark">AI</span><span>CopyPilot</span></a>
@@ -52,6 +52,9 @@
       </section>
     </main>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/supabase-config.js"></script>
+  <script src="../assets/supabase-auth.js"></script>
   <script src="../assets/data.js"></script>
   <script src="../assets/site.js"></script>
 </body>

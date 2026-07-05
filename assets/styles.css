@@ -614,6 +614,10 @@ details p {
   border-top: 1px solid var(--line);
 }
 
+.sidebar-user > div {
+  min-width: 0;
+}
+
 .sidebar-user strong,
 .sidebar-user span {
   display: block;
@@ -621,13 +625,22 @@ details p {
 
 .sidebar-user strong {
   margin-bottom: 5px;
+  overflow: hidden;
+  max-width: 100%;
   line-height: 1.35;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sidebar-user span {
+  overflow: hidden;
+  max-width: 100%;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.55;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .workspace {
@@ -1025,6 +1038,41 @@ details p {
 .auth-card h1 {
   margin-bottom: 8px;
   font-size: 30px;
+}
+
+.auth-message {
+  margin: 16px 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8fafc;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.auth-message.success {
+  border-color: rgba(63, 143, 91, 0.28);
+  background: rgba(63, 143, 91, 0.1);
+  color: #17633c;
+}
+
+.auth-message.error {
+  border-color: rgba(200, 73, 60, 0.28);
+  background: rgba(200, 73, 60, 0.1);
+  color: #8e2f25;
+}
+
+.auth-terms {
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.auth-logout {
+  grid-column: 1 / -1;
+  margin-top: 12px;
+  min-height: 34px;
+  padding: 0 10px;
+  font-size: 12px;
 }
 
 .divider {

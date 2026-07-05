@@ -13,30 +13,34 @@
       <div>
         <span class="eyebrow">用户工作台</span>
         <h1>欢迎回来</h1>
-        <p>登录后可以继续生成营销文案、打开历史记录，并查看当前套餐权益。当前页面只做结构，不连接真实鉴权。</p>
+        <p>登录后可以继续生成营销文案、查看历史记录，并管理当前套餐权益。</p>
       </div>
-      <p>演示账号：demo@copypilot.cn / 任意密码</p>
+      <p>还没有账号也没关系，可以先注册一个测试账号。</p>
     </aside>
     <section class="auth-main">
-      <form class="auth-card" action="./generate.html">
+      <form class="auth-card" data-login-form>
         <h1>登录</h1>
-        <p class="empty-note">使用邮箱密码进入工作台。</p>
+        <p class="empty-note">使用邮箱和密码进入工作台。</p>
+        <div class="auth-message" data-auth-message hidden></div>
         <div class="form-grid">
           <div class="field">
             <label for="email">邮箱</label>
-            <input id="email" name="email" type="email" value="demo@copypilot.cn">
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
           </div>
           <div class="field">
             <label for="password">密码</label>
-            <input id="password" name="password" type="password" value="password">
+            <input id="password" name="password" type="password" autocomplete="current-password" placeholder="请输入密码" required>
           </div>
           <button class="btn primary full" type="submit">登录工作台</button>
         </div>
         <div class="divider">或</div>
-        <button class="btn secondary full" type="button">使用 Google 登录</button>
-        <p class="empty-note">还没有账号？<a href="./register.html">立即注册</a></p>
+        <a class="btn secondary full" href="./register.html">注册新账号</a>
+        <p class="empty-note">登录成功后会自动进入生成工作台。</p>
       </form>
     </section>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/supabase-config.js"></script>
+  <script src="../assets/supabase-auth.js"></script>
 </body>
 </html>

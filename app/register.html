@@ -13,33 +13,37 @@
       <div>
         <span class="eyebrow">7 天试用</span>
         <h1>创建你的内容工作台</h1>
-        <p>第一版目标是让用户 5 分钟内完成注册并生成第一版文案。注册页先保留条款确认和跳转工作台结构。</p>
+        <p>注册后可以进入生成工作台，先用 mock 文案流程验证产品体验。</p>
       </div>
-      <p>注册完成后进入生成工作台。</p>
+      <p>注册资料会写入 Supabase Auth，用户基础资料会自动写入 profiles 表。</p>
     </aside>
     <section class="auth-main">
-      <form class="auth-card" action="./generate.html">
+      <form class="auth-card" data-register-form>
         <h1>注册</h1>
         <p class="empty-note">创建账号后即可体验基础生成流程。</p>
+        <div class="auth-message" data-auth-message hidden></div>
         <div class="form-grid">
           <div class="field">
             <label for="name">姓名</label>
-            <input id="name" name="name" type="text" value="市场负责人">
+            <input id="name" name="name" type="text" autocomplete="name" placeholder="例如：市场负责人">
           </div>
           <div class="field">
             <label for="email">邮箱</label>
-            <input id="email" name="email" type="email" value="newuser@copypilot.cn">
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
           </div>
           <div class="field">
             <label for="password">密码</label>
-            <input id="password" name="password" type="password" value="password">
+            <input id="password" name="password" type="password" autocomplete="new-password" placeholder="至少 6 位密码" minlength="6" required>
           </div>
-          <label class="chip"><input type="checkbox" checked> 我同意服务条款和隐私政策</label>
+          <label class="chip auth-terms"><input name="terms" type="checkbox" checked> 我同意服务条款和隐私政策</label>
           <button class="btn primary full" type="submit">注册并进入工作台</button>
         </div>
         <p class="empty-note">已有账号？<a href="./login.html">返回登录</a></p>
       </form>
     </section>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/supabase-config.js"></script>
+  <script src="../assets/supabase-auth.js"></script>
 </body>
 </html>
