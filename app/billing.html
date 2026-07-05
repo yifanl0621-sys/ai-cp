@@ -10,14 +10,19 @@
   <div class="app-layout">
     <aside class="sidebar">
       <a class="brand" href="../www/index.html"><span class="brand-mark">AI</span><span>CopyPilot</span></a>
-      <nav class="side-nav">
-        <a href="./generate.html">生成工作台</a>
-        <a href="./history.html">历史记录</a>
-        <a class="active" href="./billing.html">套餐页</a>
-        <a href="./login.html">登录</a>
-        <a href="./register.html">注册</a>
+      <nav class="side-nav" data-app-nav>
+        <a href="./generate.html" data-guest-redirect>生成工作台</a>
+        <a href="./history.html" data-guest-redirect>历史记录</a>
+        <a class="active" href="./billing.html" data-auth-only>套餐页</a>
       </nav>
-      <div class="sidebar-foot">支付按钮当前为占位，不会创建真实订单。</div>
+      <div class="sidebar-user" data-auth-only>
+        <div class="avatar">M</div>
+        <div>
+          <strong>市场负责人</strong>
+          <span>当前套餐：Pro</span>
+          <span>本月已生成 128 / 800 次</span>
+        </div>
+      </div>
     </aside>
 
     <main class="workspace">
