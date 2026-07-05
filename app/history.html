@@ -29,27 +29,17 @@
       <header class="workspace-head">
         <div>
           <h1>历史记录</h1>
-          <p>按时间和类型浏览已生成文案，支持再次打开、复制和删除。</p>
+          <p>查看当前登录用户生成并保存过的营销文案。</p>
         </div>
         <a class="btn primary" href="./generate.html">新建生成</a>
       </header>
-      <div class="toolbar">
-        <div class="chip-row">
-          <button class="chip active" data-history-filter="全部">全部</button>
-          <button class="chip" data-history-filter="小红书">小红书</button>
-          <button class="chip" data-history-filter="落地页">落地页</button>
-          <button class="chip" data-history-filter="朋友圈">朋友圈</button>
-          <button class="chip" data-history-filter="邮件">邮件</button>
-        </div>
-        <button class="btn secondary">导出选中</button>
-      </div>
-      <section class="grid" data-history data-filter="全部"></section>
+
+      <section class="grid" data-generation-history></section>
     </main>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../assets/supabase-config.js"></script>
   <script src="../assets/supabase-auth.js"></script>
-  <script src="../assets/data.js"></script>
-  <script src="../assets/site.js"></script>
+  <script src="../assets/generations.js"></script>
 </body>
 </html>

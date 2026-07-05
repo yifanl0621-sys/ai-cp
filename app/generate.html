@@ -29,9 +29,9 @@
       <header class="workspace-head">
         <div>
           <h1>生成工作台</h1>
-          <p>输入产品信息、用户和卖点，生成适配渠道的营销文案。</p>
+          <p>输入产品信息、目标用户和卖点，生成适配投放渠道的营销文案。</p>
         </div>
-        <div class="account-pill" data-auth-only><span class="avatar">M</span><span>市场负责人</span></div>
+        <div class="account-pill" data-auth-only><span class="avatar" data-user-avatar>M</span><span data-user-email>市场负责人</span></div>
       </header>
 
       <section class="workspace-grid">
@@ -39,19 +39,19 @@
           <div class="generate-form-scroll">
             <div>
               <h3>文案 Brief</h3>
-              <p class="empty-note">先用 mock 数据跑通交互，后续可替换为真实生成接口。</p>
+              <p class="empty-note">填写产品信息后，后端会调用模型生成文案，并自动保存到历史记录。</p>
             </div>
             <div class="field">
               <label for="productName">产品名称</label>
-              <input id="productName" name="productName" value="CopyPilot">
+              <input id="productName" name="productName" value="CopyPilot" required>
             </div>
             <div class="field">
               <label for="intro">一句话介绍</label>
-              <textarea id="intro" name="intro">面向独立开发者和小团队的 AI 营销文案工作台。</textarea>
+              <textarea id="intro" name="intro" required>面向独立开发者和小团队的 AI 营销文案工作台。</textarea>
             </div>
             <div class="field">
               <label for="audience">目标用户</label>
-              <input id="audience" name="audience" value="独立开发者、小团队、内容运营者">
+              <input id="audience" name="audience" value="独立开发者、小团队、内容运营者" required>
             </div>
             <div class="field">
               <label>3 个卖点</label>
@@ -63,7 +63,7 @@
             </div>
             <div class="field">
               <label for="channel">投放渠道</label>
-              <select id="channel" name="channel">
+              <select id="channel" name="channel" required>
                 <option>官网</option>
                 <option>朋友圈</option>
                 <option>小红书</option>
@@ -81,14 +81,14 @@
           <div class="result-header">
             <div>
               <h3>生成结果</h3>
-              <p class="empty-note">结果区预留主标题、副标题、CTA、3 版短文案和长文案。</p>
+              <p class="empty-note">结果会展示主标题、副标题、CTA、3 版短文案和长文案，并保存到历史记录。</p>
             </div>
             <span class="status pending" data-generate-status>待生成</span>
           </div>
           <div class="result-stage" data-generate-result>
             <div class="empty-state">
               <strong>还没有生成结果</strong>
-              <p>填写左侧 brief 后点击“生成文案”，这里会展示一组 mock 营销文案。</p>
+              <p>填写左侧 brief 后点击“生成文案”，这里会展示模型生成的营销文案。</p>
             </div>
           </div>
         </section>
@@ -98,7 +98,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../assets/supabase-config.js"></script>
   <script src="../assets/supabase-auth.js"></script>
-  <script src="../assets/data.js"></script>
-  <script src="../assets/site.js"></script>
+  <script src="../assets/generations.js"></script>
 </body>
 </html>
