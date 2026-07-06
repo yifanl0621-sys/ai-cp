@@ -541,6 +541,39 @@ h3 {
   margin-top: auto;
 }
 
+.plan-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 32px;
+  margin-bottom: 8px;
+}
+
+.plan-title-row h3 {
+  margin: 0;
+}
+
+.plan-title-row .tag {
+  flex: 0 0 auto;
+}
+
+.billing-message {
+  margin-bottom: 18px;
+}
+
+.billing-message.success {
+  border-color: rgba(63, 143, 91, 0.28);
+  background: rgba(63, 143, 91, 0.1);
+  color: #17633c;
+}
+
+.billing-message.error {
+  border-color: rgba(200, 73, 60, 0.28);
+  background: rgba(200, 73, 60, 0.1);
+  color: #8e2f25;
+}
+
 .faq-list {
   display: grid;
   gap: 12px;

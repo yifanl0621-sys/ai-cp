@@ -72,6 +72,54 @@ async function getSupabaseUser({ supabaseUrl, serviceRoleKey, token }) {
   return data;
 }
 
+async function getUserPlan({ supabaseUrl, serviceRoleKey, userId }) {
+  const { response, data } = await fetchJson(
+    `${supabaseUrl}/rest/v1/profiles?select=plan&id=eq.${encodeURIComponent(userId)}&limit=1`,
+    {
+      headers: {
+        apikey: serviceRoleKey,
+        Authorization: `Bearer ${serviceRoleKey}`
+      }
+    },
+    "Supabase profiles"
+  );
+
+  if (!response.ok || !Array.isArray(data) || !data[0]) return "Free";
+  return data[0].plan || "Free";
+}
+
+async function getTodayGenerationCount({ supabaseUrl, serviceRoleKey, userId }) {
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
+
+  const { response, data } = await fetchJson(
+    `${supabaseUrl}/rest/v1/generations?select=id&user_id=eq.${encodeURIComponent(userId)}&created_at=gte.${encodeURIComponent(start.toISOString())}`,
+    {
+      headers: {
+        apikey: serviceRoleKey,
+        Authorization: `Bearer ${serviceRoleKey}`
+      }
+    },
+    "Supabase generations"
+  );
+
+  if (!response.ok || !Array.isArray(data)) return 0;
+  return data.length;
+}
+
+async function enforceGenerationLimit({ supabaseUrl, serviceRoleKey, userId }) {
+  const plan = await getUserPlan({ supabaseUrl, serviceRoleKey, userId });
+  const normalizedPlan = String(plan || "Free").toLowerCase();
+  if (normalizedPlan === "pro" || normalizedPlan === "team") return;
+
+  const count = await getTodayGenerationCount({ supabaseUrl, serviceRoleKey, userId });
+  if (count >= 3) {
+    const error = new Error("Free 用户每日最多生成 3 次。请升级 Pro 后继续生成。");
+    error.statusCode = 403;
+    throw error;
+  }
+}
+
 function buildPrompt(input) {
   return [
     "请根据下面的产品信息生成一组中文营销文案。",
@@ -228,6 +276,8 @@ module.exports = async function handler(req, res) {
       return;
     }
 
+    await enforceGenerationLimit({ supabaseUrl, serviceRoleKey, userId: user.id });
+
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
     const input = normalizePayload(body);
     const validationError = validateInput(input);
@@ -256,7 +306,7 @@ module.exports = async function handler(req, res) {
 
     sendJson(res, 200, { generation: saved });
   } catch (error) {
-    sendJson(res, 500, {
+    sendJson(res, error.statusCode || 500, {
       error: error.message || "生成失败，请稍后重试。"
     });
   }

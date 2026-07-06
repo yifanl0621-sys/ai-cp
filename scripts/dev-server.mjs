@@ -14,6 +14,8 @@ loadEnvFile(".env.local");
 loadEnvFile(".env");
 
 const generationsHandler = require(path.join(root, "api", "generations.js"));
+const createCheckoutSessionHandler = require(path.join(root, "api", "billing", "create-checkout-session.js"));
+const stripeWebhookHandler = require(path.join(root, "api", "billing", "webhook.js"));
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -41,21 +43,23 @@ function loadEnvFile(filename) {
   }
 }
 
-async function readRequestBody(req) {
+async function readRequestPayload(req) {
   const chunks = [];
   for await (const chunk of req) chunks.push(chunk);
   const text = Buffer.concat(chunks).toString("utf8");
-  if (!text) return {};
+  if (!text) return { rawBody: "", body: {} };
   try {
-    return JSON.parse(text);
+    return { rawBody: text, body: JSON.parse(text) };
   } catch (error) {
-    return text;
+    return { rawBody: text, body: text };
   }
 }
 
-async function handleApi(req, res) {
-  req.body = await readRequestBody(req);
-  await generationsHandler(req, res);
+async function handleApi(req, res, handler) {
+  const payload = await readRequestPayload(req);
+  req.rawBody = payload.rawBody;
+  req.body = payload.body;
+  await handler(req, res);
 }
 
 async function handleStatic(req, res) {
@@ -83,7 +87,15 @@ async function handleStatic(req, res) {
 const server = createServer(async (req, res) => {
   try {
     if ((req.url || "").startsWith("/api/generations")) {
-      await handleApi(req, res);
+      await handleApi(req, res, generationsHandler);
+      return;
+    }
+    if ((req.url || "").startsWith("/api/billing/create-checkout-session")) {
+      await handleApi(req, res, createCheckoutSessionHandler);
+      return;
+    }
+    if ((req.url || "").startsWith("/api/billing/webhook")) {
+      await handleApi(req, res, stripeWebhookHandler);
       return;
     }
     await handleStatic(req, res);

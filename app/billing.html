@@ -29,33 +29,63 @@
       <header class="workspace-head">
         <div>
           <h1>套餐页</h1>
-          <p>查看 Free / Pro / Team 套餐，模拟月付和年付切换。</p>
-        </div>
-        <div class="chip-row">
-          <button class="chip active" data-cycle-button="monthly">月付</button>
-          <button class="chip" data-cycle-button="yearly">年付</button>
+          <p>先跑通 Pro 付费主流程：点击升级，跳转 Stripe Checkout，支付成功后自动升级套餐。</p>
         </div>
       </header>
 
-      <section class="panel">
-        <div class="result-header">
-          <div>
-            <h3>当前套餐：Pro</h3>
-            <p class="empty-note">本月已生成 128 / 800 次，历史记录长期保存，优先生成队列已开启。</p>
-          </div>
-          <span class="status success">订阅正常</span>
-        </div>
-      </section>
+      <section class="panel" data-billing-message hidden></section>
 
       <section class="section tight">
-        <div class="grid three" data-pricing data-cycle="monthly"></div>
+        <div class="grid three">
+          <article class="pricing-card">
+            <div class="plan-title-row">
+              <h3>Free</h3>
+            </div>
+            <p>适合先体验核心生成流程。</p>
+            <div class="price"><strong>¥0</strong><span>/月</span></div>
+            <ul class="feature-list">
+              <li>每日 3 次生成</li>
+              <li>保存历史记录</li>
+              <li>基础文案结构</li>
+            </ul>
+            <a class="btn secondary full" href="./generate.html">继续使用 Free</a>
+          </article>
+
+          <article class="pricing-card highlight">
+            <div class="plan-title-row">
+              <h3>Pro</h3>
+              <span class="tag">推荐</span>
+            </div>
+            <p>适合稳定使用 AI 营销文案工作台。</p>
+            <div class="price"><strong>¥29</strong><span>/月</span></div>
+            <ul class="feature-list">
+              <li>不限次数生成</li>
+              <li>保存历史记录</li>
+              <li>优先使用新模板</li>
+            </ul>
+            <button class="btn primary full" type="button" data-upgrade-plan="pro">升级到 Pro</button>
+          </article>
+
+          <article class="pricing-card">
+            <div class="plan-title-row">
+              <h3>Team</h3>
+            </div>
+            <p>适合多人协作、统一管理品牌文案。</p>
+            <div class="price"><strong>¥99</strong><span>/月</span></div>
+            <ul class="feature-list">
+              <li>团队成员管理</li>
+              <li>共享历史记录</li>
+              <li>品牌语气配置</li>
+            </ul>
+            <button class="btn secondary full" type="button" disabled>暂未开放</button>
+          </article>
+        </div>
       </section>
     </main>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../assets/supabase-config.js"></script>
   <script src="../assets/supabase-auth.js"></script>
-  <script src="../assets/data.js"></script>
-  <script src="../assets/site.js"></script>
+  <script src="../assets/billing.js"></script>
 </body>
 </html>
