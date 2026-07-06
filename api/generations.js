@@ -1,4 +1,6 @@
-const DEFAULT_MODEL = "gpt-4.1-mini";
+const DEFAULT_OPENAI_MODEL = "gpt-4.1-mini";
+const DEFAULT_DASHSCOPE_MODEL = "qwen-max";
+const DASHSCOPE_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1";
 
 function sendJson(res, statusCode, body) {
   res.statusCode = statusCode;
@@ -27,11 +29,11 @@ function normalizePayload(body) {
 }
 
 function validateInput(input) {
-  if (!input.product_name) return "Please enter a product name.";
-  if (!input.intro) return "Please enter a short introduction.";
-  if (!input.audience) return "Please enter the target audience.";
-  if (!input.channel) return "Please choose a channel.";
-  if (input.selling_points.length < 1) return "Please enter at least one selling point.";
+  if (!input.product_name) return "请填写产品名称。";
+  if (!input.intro) return "请填写一句话介绍。";
+  if (!input.audience) return "请填写目标用户。";
+  if (!input.channel) return "请选择投放渠道。";
+  if (input.selling_points.length < 1) return "请至少填写 1 个卖点。";
   return "";
 }
 
@@ -72,16 +74,17 @@ async function getSupabaseUser({ supabaseUrl, serviceRoleKey, token }) {
 
 function buildPrompt(input) {
   return [
-    "Please generate Chinese marketing copy from the product brief below.",
-    "Return JSON only. Do not return Markdown.",
+    "请根据下面的产品信息生成一组中文营销文案。",
+    "只返回 JSON，不要返回 Markdown。",
     "",
-    `Product name: ${input.product_name}`,
-    `One-line introduction: ${input.intro}`,
-    `Target audience: ${input.audience}`,
-    `Selling points: ${input.selling_points.join("; ")}`,
-    `Channel: ${input.channel}`,
+    `产品名称：${input.product_name}`,
+    `一句话介绍：${input.intro}`,
+    `目标用户：${input.audience}`,
+    `卖点：${input.selling_points.join("；")}`,
+    `投放渠道：${input.channel}`,
     "",
-    "The JSON must include: main_title, subtitle, cta, short_copies, long_copy."
+    "JSON 字段必须包含：main_title, subtitle, cta, short_copies, long_copy。",
+    "short_copies 必须是 3 个字符串组成的数组。"
   ].join("\n");
 }
 
@@ -90,94 +93,82 @@ function safeParseOutputText(text) {
     return JSON.parse(text);
   } catch (error) {
     return {
-      main_title: "Generated result needs review",
-      subtitle: "The model returned non-JSON content. See long_copy.",
-      cta: "Regenerate",
+      main_title: "生成结果需要人工检查",
+      subtitle: "模型返回了非 JSON 内容，请查看长文案。",
+      cta: "重新生成",
       short_copies: [text.slice(0, 220)],
       long_copy: text
     };
   }
 }
 
-function extractResponseText(data) {
-  if (typeof data.output_text === "string" && data.output_text.trim()) {
-    return data.output_text;
+function getProviderConfig() {
+  const provider = (process.env.AI_PROVIDER || "").toLowerCase();
+  const isDashScope = provider === "dashscope" || Boolean(process.env.DASHSCOPE_API_KEY);
+
+  if (isDashScope) {
+    return {
+      label: "DashScope",
+      apiKey: process.env.DASHSCOPE_API_KEY || process.env.OPENAI_API_KEY,
+      model: process.env.DASHSCOPE_MODEL || process.env.OPENAI_MODEL || DEFAULT_DASHSCOPE_MODEL,
+      baseUrl: (process.env.DASHSCOPE_BASE_URL || DASHSCOPE_BASE_URL).replace(/\/$/, "")
+    };
   }
 
-  const parts = [];
-  for (const item of data.output || []) {
-    for (const content of item.content || []) {
-      if (content.text) parts.push(content.text);
-    }
-  }
-  return parts.join("\n").trim();
+  return {
+    label: "OpenAI",
+    apiKey: process.env.OPENAI_API_KEY,
+    model: process.env.OPENAI_MODEL || DEFAULT_OPENAI_MODEL,
+    baseUrl: (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/$/, "")
+  };
+}
+
+function normalizeModelOutput(data) {
+  const text = data.choices?.[0]?.message?.content || data.output_text || "";
+  return safeParseOutputText(text);
 }
 
 async function generateCopy(input) {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error("Missing OPENAI_API_KEY on the backend.");
+  const provider = getProviderConfig();
+  if (!provider.apiKey) {
+    throw new Error(`后端缺少 ${provider.label} API Key 环境变量。`);
   }
 
-  const model = process.env.OPENAI_MODEL || DEFAULT_MODEL;
   const { response, data } = await fetchJson(
-    "https://api.openai.com/v1/responses",
+    `${provider.baseUrl}/chat/completions`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`
+        Authorization: `Bearer ${provider.apiKey}`
       },
       body: JSON.stringify({
-        model,
-        input: [
+        model: provider.model,
+        messages: [
           {
             role: "system",
-            content: "You are a senior Chinese SaaS marketing copywriter. Write clear, credible, conversion-focused copy."
+            content: "你是资深中文 SaaS 营销文案专家，擅长写清晰、可信、可转化的营销文案。"
           },
           {
             role: "user",
             content: buildPrompt(input)
           }
         ],
-        text: {
-          format: {
-            type: "json_schema",
-            name: "marketing_copy_result",
-            strict: true,
-            schema: {
-              type: "object",
-              additionalProperties: false,
-              properties: {
-                main_title: { type: "string" },
-                subtitle: { type: "string" },
-                cta: { type: "string" },
-                short_copies: {
-                  type: "array",
-                  minItems: 3,
-                  maxItems: 3,
-                  items: { type: "string" }
-                },
-                long_copy: { type: "string" }
-              },
-              required: ["main_title", "subtitle", "cta", "short_copies", "long_copy"]
-            }
-          }
-        }
+        response_format: { type: "json_object" },
+        temperature: 0.7
       })
     },
-    "OpenAI"
+    provider.label
   );
 
   if (!response.ok) {
-    const message = data.error && data.error.message ? data.error.message : data.message || "OpenAI generation failed.";
+    const message = data.error?.message || data.message || `${provider.label} generation failed.`;
     throw new Error(message);
   }
 
-  const text = extractResponseText(data);
   return {
-    model,
-    output: safeParseOutputText(text)
+    model: provider.model,
+    output: normalizeModelOutput(data)
   };
 }
 
@@ -198,7 +189,7 @@ async function insertGeneration({ supabaseUrl, serviceRoleKey, row }) {
   );
 
   if (!response.ok) {
-    const message = data.message || data.error || "Failed to save generation.";
+    const message = data.message || data.error || "保存生成记录失败。";
     throw new Error(message);
   }
 
@@ -213,7 +204,7 @@ module.exports = async function handler(req, res) {
   }
 
   if (req.method !== "POST") {
-    sendJson(res, 405, { error: "Only POST is supported." });
+    sendJson(res, 405, { error: "只支持 POST 请求。" });
     return;
   }
 
@@ -221,19 +212,19 @@ module.exports = async function handler(req, res) {
     const supabaseUrl = process.env.SUPABASE_URL;
     const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!supabaseUrl || !serviceRoleKey) {
-      sendJson(res, 500, { error: "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY on the backend." });
+      sendJson(res, 500, { error: "后端缺少 SUPABASE_URL 或 SUPABASE_SERVICE_ROLE_KEY 环境变量。" });
       return;
     }
 
     const token = parseBearerToken(req);
     if (!token) {
-      sendJson(res, 401, { error: "Please log in before generating copy." });
+      sendJson(res, 401, { error: "请先登录后再生成文案。" });
       return;
     }
 
     const user = await getSupabaseUser({ supabaseUrl, serviceRoleKey, token });
     if (!user || !user.id) {
-      sendJson(res, 401, { error: "Your login session has expired. Please log in again." });
+      sendJson(res, 401, { error: "登录状态已过期，请重新登录。" });
       return;
     }
 
@@ -266,7 +257,7 @@ module.exports = async function handler(req, res) {
     sendJson(res, 200, { generation: saved });
   } catch (error) {
     sendJson(res, 500, {
-      error: error.message || "Generation failed. Please try again later."
+      error: error.message || "生成失败，请稍后重试。"
     });
   }
 };
