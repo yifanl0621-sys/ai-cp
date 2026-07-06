@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "description": "AI marketing copy SaaS MVP with static pages and Node API routes.",
-  "type": "module",
   "scripts": {
     "start": "node scripts/dev-server.mjs",
     "dev": "node scripts/dev-server.mjs"
