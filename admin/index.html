@@ -14,58 +14,83 @@
         <a class="active" href="./index.html">后台首页</a>
         <a href="./users.html">用户管理</a>
         <a href="./generations.html">生成记录</a>
-        <a href="./billing.html">支付订单</a>
+        <a href="./billing.html">支付与订阅</a>
       </nav>
-      <div class="sidebar-foot">管理员视角：用户、生成、支付和转化概览。</div>
+      <div class="sidebar-foot">仅 role = admin 的账号可访问后台。</div>
     </aside>
 
     <main class="workspace">
       <header class="workspace-head">
         <div>
           <h1>后台首页</h1>
-          <p>关键经营指标、生成趋势和近期异常概览。</p>
+          <p>查看用户规模、生成使用量、付费收入和转化概览。</p>
         </div>
         <span class="status success">Admin</span>
       </header>
 
-      <section class="metrics" data-metrics></section>
+      <section class="metrics" data-admin-metrics>
+        <article class="metric-card"><span>用户总数</span><strong>-</strong><small>正在读取</small></article>
+        <article class="metric-card"><span>生成次数</span><strong>-</strong><small>正在读取</small></article>
+        <article class="metric-card"><span>付费收入</span><strong>-</strong><small>正在读取</small></article>
+        <article class="metric-card"><span>付费转化</span><strong>-</strong><small>正在读取</small></article>
+      </section>
 
-      <section class="split">
-        <div class="panel">
-          <div class="result-header">
-            <h3>近 7 日生成趋势</h3>
-            <span class="chip">假数据</span>
+      <section class="split admin-dashboard-split">
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>最近生成</h2>
+              <p>最新的营销文案生成记录。</p>
+            </div>
+            <a class="btn secondary" href="./generations.html">查看全部</a>
           </div>
-          <div class="chart" aria-label="近 7 日生成趋势柱状图">
-            <div class="bar" style="height: 42%"></div>
-            <div class="bar" style="height: 58%"></div>
-            <div class="bar" style="height: 51%"></div>
-            <div class="bar" style="height: 72%"></div>
-            <div class="bar" style="height: 67%"></div>
-            <div class="bar" style="height: 88%"></div>
-            <div class="bar" style="height: 79%"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>用户</th>
+                  <th>产品名</th>
+                  <th>渠道</th>
+                  <th>时间</th>
+                </tr>
+              </thead>
+              <tbody data-admin-recent-generations>
+                <tr><td colspan="4">正在读取生成记录...</td></tr>
+              </tbody>
+            </table>
           </div>
-        </div>
+        </article>
 
-        <div class="panel">
-          <div class="result-header">
-            <h3>转化概览</h3>
-            <span class="chip">本月</span>
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>转化概览</h2>
+              <p>最近支付订单和订阅状态。</p>
+            </div>
+            <a class="btn secondary" href="./billing.html">查看订单</a>
           </div>
-          <div class="result-card">
-            <div class="result-header"><span>游客到注册</span><strong>18.6%</strong></div>
-            <div class="result-header"><span>免费到 Pro</span><strong>7.4%</strong></div>
-            <div class="result-header"><span>支付成功率</span><strong>96.1%</strong></div>
-            <div class="result-header"><span>生成失败率</span><strong>1.9%</strong></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>用户</th>
+                  <th>套餐</th>
+                  <th>状态</th>
+                  <th>金额</th>
+                </tr>
+              </thead>
+              <tbody data-admin-recent-billing>
+                <tr><td colspan="4">正在读取支付记录...</td></tr>
+              </tbody>
+            </table>
           </div>
-        </div>
+        </article>
       </section>
     </main>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../assets/supabase-config.js"></script>
   <script src="../assets/supabase-auth.js"></script>
-  <script src="../assets/data.js"></script>
-  <script src="../assets/site.js"></script>
+  <script src="../assets/admin.js"></script>
 </body>
 </html>

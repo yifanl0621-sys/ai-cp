@@ -14,52 +14,40 @@
         <a href="./index.html">后台首页</a>
         <a href="./users.html">用户管理</a>
         <a class="active" href="./generations.html">生成记录</a>
-        <a href="./billing.html">支付订单</a>
+        <a href="./billing.html">支付与订阅</a>
       </nav>
-      <div class="sidebar-foot">用于排查失败记录、热门渠道和成本趋势。</div>
+      <div class="sidebar-foot">用于查看生成内容、失败记录和渠道分布。</div>
     </aside>
 
     <main class="workspace">
       <header class="workspace-head">
         <div>
           <h1>生成记录</h1>
-          <p>查看每次生成的用户、渠道、语气、状态和模拟 token 成本。</p>
+          <p>查看用户、产品名、投放渠道、生成状态和创建时间。</p>
         </div>
-        <button class="btn secondary">导出 CSV</button>
+        <span class="status success">Admin</span>
       </header>
 
-      <section class="grid three" style="margin-bottom: 18px;">
-        <article class="card">
-          <div class="accent-line"></div>
-          <h3>高频渠道</h3>
-          <p>小红书 38% / 信息流广告 26% / 落地页 18%</p>
-        </article>
-        <article class="card">
-          <div class="accent-line coral"></div>
-          <h3>失败原因</h3>
-          <p>模型超时、敏感词校验和队列拥堵是当前主要失败类型。</p>
-        </article>
-        <article class="card">
-          <div class="accent-line yellow"></div>
-          <h3>高峰时段</h3>
-          <p>工作日 10:00-12:00 与 20:00-22:00 生成请求更集中。</p>
-        </article>
+      <section class="grid three" data-admin-generation-summary>
+        <article class="card"><div class="accent-line"></div><h3>生成总数</h3><p>正在读取...</p></article>
+        <article class="card"><div class="accent-line coral"></div><h3>失败记录</h3><p>正在读取...</p></article>
+        <article class="card"><div class="accent-line yellow"></div><h3>高频渠道</h3><p>正在读取...</p></article>
       </section>
 
-      <section class="table-wrap">
+      <section class="table-wrap" style="margin-top: 18px;">
         <table>
           <thead>
             <tr>
-              <th>生成 ID</th>
               <th>用户</th>
+              <th>产品名</th>
               <th>渠道</th>
-              <th>语气</th>
               <th>状态</th>
-              <th>成本</th>
-              <th>时间</th>
+              <th>创建时间</th>
             </tr>
           </thead>
-          <tbody data-admin-generations></tbody>
+          <tbody data-admin-generations-page>
+            <tr><td colspan="5">正在读取生成记录...</td></tr>
+          </tbody>
         </table>
       </section>
     </main>
@@ -67,7 +55,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../assets/supabase-config.js"></script>
   <script src="../assets/supabase-auth.js"></script>
-  <script src="../assets/data.js"></script>
-  <script src="../assets/site.js"></script>
+  <script src="../assets/admin.js"></script>
 </body>
 </html>

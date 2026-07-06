@@ -11,10 +11,19 @@
   };
 
   const loginPath = "../app/login.html";
-  const dashboardPath = "../app/generate.html";
+  const appHomePath = "../app/generate.html";
+  const adminHomePath = "../admin/index.html";
 
   function isProtectedPage() {
     return document.body.matches("[data-auth-required], [data-admin-required]");
+  }
+
+  function isAdminPage() {
+    return document.body.matches("[data-admin-required]");
+  }
+
+  function markAuthReady() {
+    document.body.classList.add("auth-ready");
   }
 
   function setMessage(form, message, type) {
@@ -30,8 +39,19 @@
     window.location.href = `${loginPath}?next=${next}`;
   }
 
-  function redirectToDashboard() {
-    window.location.href = dashboardPath;
+  function destinationForProfile(profile) {
+    return profile?.role === "admin" ? adminHomePath : appHomePath;
+  }
+
+  async function getProfile(userId) {
+    if (!client || !userId) return null;
+    const { data, error } = await client
+      .from("profiles")
+      .select("id,email,role,plan")
+      .eq("id", userId)
+      .maybeSingle();
+    if (error) return null;
+    return data;
   }
 
   function authErrorMessage(error) {
@@ -40,7 +60,7 @@
       return "邮箱或密码不正确，请重新输入。";
     }
     if (error.message && error.message.includes("Email not confirmed")) {
-      return "请先打开邮箱，点击 Supabase 发给你的确认链接。";
+      return "请先打开邮箱，点击确认链接。";
     }
     return error.message || "操作失败，请稍后重试。";
   }
@@ -67,12 +87,21 @@
       return;
     }
 
-    renderSession(data.session.user);
+    const profile = await getProfile(data.session.user.id);
+    if (isAdminPage() && profile?.role !== "admin") {
+      window.location.href = appHomePath;
+      return;
+    }
+
+    renderSession(data.session.user, profile);
+    markAuthReady();
   }
 
-  function renderSession(user) {
+  function renderSession(user, profile) {
     if (!user) return;
-    const email = user.email || "已登录用户";
+    const email = profile?.email || user.email || "已登录用户";
+    const plan = profile?.plan || "Free";
+
     document.querySelectorAll("[data-user-email]").forEach((item) => {
       item.textContent = email;
     });
@@ -83,16 +112,20 @@
     document.querySelectorAll(".sidebar-user").forEach((block) => {
       const avatar = block.querySelector(".avatar");
       const name = block.querySelector("strong");
-      const meta = block.querySelector("span");
+      const spans = block.querySelectorAll("span");
       if (avatar) avatar.textContent = email.slice(0, 1).toUpperCase();
       if (name) name.textContent = email;
-      if (meta && meta.textContent.includes("Pro")) meta.textContent = "当前套餐：Free";
+      if (spans[0]) spans[0].textContent = `当前套餐：${plan}`;
       appendLogoutButton(block);
     });
 
     document.querySelectorAll(".sidebar-foot").forEach((block) => {
       appendLogoutButton(block);
     });
+
+    document.dispatchEvent(new CustomEvent("copypilot:profile-ready", {
+      detail: { user, profile }
+    }));
   }
 
   function appendLogoutButton(container) {
@@ -128,16 +161,20 @@
       const formData = new FormData(form);
       const email = String(formData.get("email") || "").trim();
       const password = String(formData.get("password") || "");
-      const { error } = await client.auth.signInWithPassword({ email, password });
+      const { data, error } = await client.auth.signInWithPassword({ email, password });
 
-      disableSubmit(form, false);
       if (error) {
+        disableSubmit(form, false);
         setMessage(form, authErrorMessage(error), "error");
         return;
       }
 
-      setMessage(form, "登录成功，正在进入工作台...", "success");
-      window.setTimeout(redirectToDashboard, 350);
+      const profile = await getProfile(data.user.id);
+      const isAdmin = profile?.role === "admin";
+      setMessage(form, isAdmin ? "登录成功，正在进入后台..." : "登录成功，正在进入工作台...", "success");
+      window.setTimeout(() => {
+        window.location.href = destinationForProfile(profile);
+      }, 350);
     });
   }
 
@@ -182,7 +219,9 @@
 
       if (data.session) {
         setMessage(form, "注册成功，正在进入工作台...", "success");
-        window.setTimeout(redirectToDashboard, 350);
+        window.setTimeout(() => {
+          window.location.href = appHomePath;
+        }, 350);
         return;
       }
 

@@ -14,34 +14,35 @@
         <a href="./index.html">后台首页</a>
         <a class="active" href="./users.html">用户管理</a>
         <a href="./generations.html">生成记录</a>
-        <a href="./billing.html">支付订单</a>
+        <a href="./billing.html">支付与订阅</a>
       </nav>
-      <div class="sidebar-foot">封禁和恢复按钮为前端占位。</div>
+      <div class="sidebar-foot">封禁和恢复按钮先作为前端占位，后续可接入真正的用户状态字段。</div>
     </aside>
 
     <main class="workspace">
       <header class="workspace-head">
         <div>
           <h1>用户管理</h1>
-          <p>查看用户角色、套餐状态、最近活跃和生成次数。</p>
+          <p>查看用户列表、套餐状态、最近活跃和账号操作。</p>
         </div>
-        <button class="btn secondary">筛选用户</button>
+        <span class="status success">Admin</span>
       </header>
 
       <section class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>邮箱</th>
-              <th>角色</th>
-              <th>套餐</th>
-              <th>状态</th>
+              <th>Email</th>
+              <th>套餐状态</th>
+              <th>创建时间</th>
               <th>最近活跃</th>
               <th>生成次数</th>
               <th>操作</th>
             </tr>
           </thead>
-          <tbody data-users></tbody>
+          <tbody data-admin-users-page>
+            <tr><td colspan="6">正在读取用户列表...</td></tr>
+          </tbody>
         </table>
       </section>
     </main>
@@ -49,7 +50,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../assets/supabase-config.js"></script>
   <script src="../assets/supabase-auth.js"></script>
-  <script src="../assets/data.js"></script>
-  <script src="../assets/site.js"></script>
+  <script src="../assets/admin.js"></script>
 </body>
 </html>

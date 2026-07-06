@@ -1,6 +1,7 @@
 (function () {
   const auth = window.CopyPilotAuth;
   const client = auth && auth.client;
+  let currentPlan = "Free";
 
   function showMessage(message, type) {
     const target = document.querySelector("[data-billing-message]");
@@ -22,10 +23,35 @@
     return { error: await response.text() };
   }
 
+  function normalizePlan(plan) {
+    return String(plan || "Free").trim().toLowerCase();
+  }
+
+  function updateProButton(plan) {
+    currentPlan = plan || currentPlan;
+    const isPro = normalizePlan(currentPlan) === "pro";
+    document.querySelectorAll("[data-upgrade-plan='pro']").forEach((button) => {
+      if (isPro) {
+        button.disabled = true;
+        button.textContent = "当前已是 Pro";
+        button.classList.remove("primary");
+        button.classList.add("secondary");
+      }
+    });
+    if (isPro) {
+      showMessage("你当前已经是 Pro 套餐，无需重复购买。", "success");
+    }
+  }
+
   async function createCheckoutSession(button) {
     const session = await getSession();
     if (!session) {
       window.location.href = "./login.html";
+      return;
+    }
+
+    if (normalizePlan(currentPlan) === "pro") {
+      updateProButton(currentPlan);
       return;
     }
 
@@ -67,6 +93,10 @@
       showMessage("你已取消支付，当前套餐没有变化。", "error");
     }
   }
+
+  document.addEventListener("copypilot:profile-ready", (event) => {
+    updateProButton(event.detail.profile?.plan || "Free");
+  });
 
   document.addEventListener("DOMContentLoaded", () => {
     showCheckoutReturnMessage();

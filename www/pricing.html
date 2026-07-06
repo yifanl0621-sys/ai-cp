@@ -22,13 +22,13 @@
   </header>
 
   <main>
-    <section class="section">
+    <section class="section pricing-hero">
       <div class="container">
         <div class="section-head">
           <div>
             <span class="eyebrow">Pricing</span>
-            <h1>按生成规模选择套餐</h1>
-            <p class="lead">当前仅展示页面结构和假数据。后续可接入 `/api/billing/plans` 与支付 checkout。</p>
+            <h1>从试用到稳定产出，按阶段选择套餐</h1>
+            <p class="lead">Free 用来验证流程，Pro 适合持续生成营销文案，Team 为后续多人协作预留。</p>
           </div>
           <div class="chip-row">
             <button class="chip active" data-cycle-button="monthly">月付</button>
@@ -43,25 +43,25 @@
       <div class="container grid three">
         <article class="card">
           <div class="accent-line"></div>
-          <h3>免费试用</h3>
-          <p>面向个人创作者和独立开发者，注册后进入工作台完整体验，不需要销售介入。</p>
+          <h3>先跑通生成</h3>
+          <p>注册后即可进入工作台，填写产品信息并生成第一版营销文案。</p>
         </article>
         <article class="card">
           <div class="accent-line coral"></div>
-          <h3>产品演示</h3>
-          <p>面向代理商和团队采购，保留预约演示入口，后续可连接 CRM 或表单系统。</p>
+          <h3>保存和复用</h3>
+          <p>每次生成都会保存到历史记录，方便后续查看、复盘和继续编辑。</p>
         </article>
         <article class="card">
           <div class="accent-line yellow"></div>
-          <h3>支付闭环</h3>
-          <p>套餐页、订单状态和后台支付列表保持同一套状态模型，便于接入 Stripe 或其他支付。</p>
+          <h3>支付后自动升级</h3>
+          <p>Pro 支付通过 Stripe Checkout 完成，成功后由 webhook 自动同步套餐状态。</p>
         </article>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container">定价数据来自本地假数据，未连接真实支付。</div>
+    <div class="container">CopyPilot：AI 营销文案生成、历史记录、套餐支付和后台管理。</div>
   </footer>
   <script src="../assets/data.js"></script>
   <script src="../assets/site.js"></script>

@@ -37,6 +37,24 @@ body {
   background: var(--bg);
 }
 
+body[data-auth-required]:not(.auth-ready) .app-layout,
+body[data-admin-required]:not(.auth-ready) .admin-layout {
+  visibility: hidden;
+}
+
+body[data-auth-required]:not(.auth-ready)::before,
+body[data-admin-required]:not(.auth-ready)::before {
+  content: "正在验证登录状态...";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  background: #f5f7fa;
+  color: var(--muted);
+  font-weight: 800;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -266,6 +284,28 @@ h3 {
   justify-content: space-between;
   gap: 24px;
   margin-bottom: 28px;
+}
+
+.home-section-spacious .section-head {
+  margin-bottom: 44px;
+}
+
+.home-section-spacious .section-head h2 {
+  margin-top: 10px;
+}
+
+.pricing-hero {
+  padding-top: 96px;
+}
+
+.pricing-hero .section-head {
+  align-items: start;
+  margin-bottom: 42px;
+}
+
+.pricing-hero h1,
+.faq-hero h1 {
+  max-width: 760px;
 }
 
 .section-head p {
@@ -572,6 +612,44 @@ h3 {
   border-color: rgba(200, 73, 60, 0.28);
   background: rgba(200, 73, 60, 0.1);
   color: #8e2f25;
+}
+
+.admin-tabs {
+  margin-bottom: 16px;
+}
+
+.panel {
+  padding: 18px;
+}
+
+.panel-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.panel-head h2 {
+  margin-bottom: 6px;
+  font-size: 22px;
+}
+
+.panel-head p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.panel .table-wrap {
+  border-radius: 8px;
+}
+
+.admin-tab-panel[hidden] {
+  display: none;
+}
+
+.admin-tab-panel .table-wrap {
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .faq-list {
@@ -1038,6 +1116,10 @@ details p {
   background: #ffffff;
 }
 
+.generate-form-title h3 {
+  margin-bottom: 0;
+}
+
 .generate-result-panel {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
@@ -1052,9 +1134,13 @@ details p {
 }
 
 .generate-result-panel .result-header {
-  margin-bottom: 14px;
-  padding-bottom: 14px;
+  margin-bottom: 10px;
+  padding-bottom: 12px;
   border-bottom: 1px solid rgba(226, 232, 240, 0.76);
+}
+
+.generate-result-panel .result-header h3 {
+  margin-bottom: 0;
 }
 
 .generate-result-panel .result-header .status {
@@ -1095,6 +1181,18 @@ details p {
 .generate-result-panel .hero-copy,
 .generate-result-panel .cta-copy {
   background-color: rgba(255, 255, 255, 0.7);
+}
+
+.billing-page .workspace-head {
+  margin-bottom: 10px;
+}
+
+.billing-page .billing-message {
+  margin-bottom: 8px;
+}
+
+.billing-page .section.tight.billing-plans-section {
+  padding-top: 6px;
 }
 
 .auth-page {
@@ -1243,6 +1341,16 @@ td {
   font-weight: 800;
 }
 
+.metric-card.error {
+  border-color: rgba(200, 73, 60, 0.28);
+  background: rgba(200, 73, 60, 0.08);
+}
+
+.metric-card.error strong,
+.metric-card.error small {
+  color: #8e2f25;
+}
+
 .chart {
   display: flex;
   align-items: end;
@@ -1265,6 +1373,26 @@ td {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 18px;
+}
+
+.admin-dashboard-split {
+  max-width: 100%;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.admin-dashboard-split > .panel {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.admin-dashboard-split .table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.admin-dashboard-split table {
+  min-width: 620px;
 }
 
 .empty-note {
@@ -1308,6 +1436,10 @@ td {
 
   .side-nav {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .admin-layout .side-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .sidebar-foot {

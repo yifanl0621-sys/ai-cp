@@ -47,6 +47,22 @@ async function getSupabaseUser({ supabaseUrl, serviceRoleKey, token }) {
   return data;
 }
 
+async function getUserPlan({ supabaseUrl, serviceRoleKey, userId }) {
+  const { response, data } = await fetchJson(
+    `${supabaseUrl}/rest/v1/profiles?select=plan&id=eq.${encodeURIComponent(userId)}&limit=1`,
+    {
+      headers: {
+        apikey: serviceRoleKey,
+        Authorization: `Bearer ${serviceRoleKey}`
+      }
+    },
+    "Supabase profiles"
+  );
+
+  if (!response.ok || !Array.isArray(data) || !data[0]) return "Free";
+  return data[0].plan || "Free";
+}
+
 function encodeStripeParams(params) {
   const body = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
@@ -124,6 +140,12 @@ module.exports = async function handler(req, res) {
     const user = await getSupabaseUser({ supabaseUrl, serviceRoleKey, token });
     if (!user || !user.id) {
       sendJson(res, 401, { error: "登录状态已过期，请重新登录。" });
+      return;
+    }
+
+    const currentPlan = await getUserPlan({ supabaseUrl, serviceRoleKey, userId: user.id });
+    if (String(currentPlan || "").toLowerCase() === "pro") {
+      sendJson(res, 409, { error: "你当前已经是 Pro 套餐，无需重复购买。" });
       return;
     }
 
