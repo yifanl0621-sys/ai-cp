@@ -66,7 +66,16 @@ async function handleApi(req, res, handler) {
 
 async function handleStatic(req, res) {
   const url = new URL(req.url || "/", `http://127.0.0.1:${port}`);
-  const pathname = decodeURIComponent(url.pathname === "/" ? "/www/index.html" : url.pathname);
+  const routeAliases = {
+    "/": "/www/index.html",
+    "/index.html": "/www/index.html",
+    "/pricing": "/www/pricing.html",
+    "/pricing.html": "/www/pricing.html",
+    "/faq": "/www/faq.html",
+    "/faq.html": "/www/faq.html"
+  };
+  const requestPath = routeAliases[url.pathname] || url.pathname;
+  const pathname = decodeURIComponent(requestPath);
   const filePath = path.resolve(root, `.${pathname}`);
 
   if (!filePath.startsWith(root)) {
